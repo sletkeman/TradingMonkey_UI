@@ -5,26 +5,21 @@ import {
   Route,
 } from "react-router-dom";
 
-import Sandwich from "./pages/sandwich/sandwich";
-import Tacos from "./pages/tacos/tacos";
-import App from "./pages/counter/App"
+import Trader from "./pages/Trader/Trader";
+import Counter from "./pages/counter/Counter"
 
 const routes = [
   {
     path: "/",
-    component: App
+    component: Trader
   },
   {
-    path: "/sandwich",
-    component: Sandwich
-  },
-  {
-    path: "/tacos",
-    component: Tacos,
-  },
+    path: "/counter",
+    component: Counter
+  }
 ];
 
-export default function RouteConfigExample() {
+function App() {
   return (
     <Router>
         <Switch>
@@ -40,3 +35,5 @@ export default function RouteConfigExample() {
     </Router>
   );
 }
+
+export default App;
