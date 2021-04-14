@@ -18,8 +18,8 @@ const getSessionAction = (authenticated) => ({
 
 const authenticate = () => async dispatch => {
     try {
-        const response = await getAuthUrl();
-        const { authUrl, authenticated } = response;
+        const { data } = await getAuthUrl();
+        const { authUrl, authenticated } = data;
         dispatch(getAuthAction(authUrl, authenticated));
     } catch (error) {
         console.log(error);

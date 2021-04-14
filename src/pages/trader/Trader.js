@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import clsx from 'clsx';
-import { withStyles } from '@material-ui/styles';
 import {Button, Select, InputLabel, MenuItem, TextField, Grid} from '@material-ui/core/';
 // import { KeyboardDatePicker } from '@material-ui/pickers';
 import './Trader.css';
 import { authenticate } from '../../store/etrade/actions';
 import { getUsers } from '../../store/monkey/actions';
 
-const styles = (theme) => ({
-  root: {
-    flexGrow: 1,
-    padding: '10px',
-  },
-  margin: {
-    margin: theme.spacing(1),
-  }
-});
 
 class Trader extends Component {
   constructor(props) {
@@ -37,14 +26,12 @@ class Trader extends Component {
   }
 
   componentDidMount() {
-    debugger;
     this.props.dispatch(getUsers())
   }
 
   render() {
-      const { classes } = this.props;
       return (
-      <div className={classes.root}>
+      <div>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Button variant="contained" color="primary" onClick={this.handleClick}>
@@ -54,9 +41,7 @@ class Trader extends Component {
           <Grid item xs={3}>
             <TextField
               label="User Login"
-              className={clsx(classes.margin, classes.textField)}
               value={this.state.userLogin}
-              onChange={this.handleChange('userLogin')}
             />
             <Button variant="contained" color="primary" onClick={this.handleClick}>
               Get Monkeys
@@ -66,7 +51,6 @@ class Trader extends Component {
             <InputLabel htmlFor="name-native-error">Account</InputLabel>
               <Select
                 value={this.state.accountId}
-                onChange={this.handleChange('account')}
               >
                 <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
@@ -105,12 +89,9 @@ Trader.propTypes = {
 //   monkeys: monkeys.monkeys
 // });
 
-const mapStateToProps = (arg) => {
-  debugger;
-  return {
-    users: arg.monkeys.users,
-    monkeys: arg.monkeys.monkeys
-  }
-};
+const mapStateToProps = ({ monkey }) => ({
+    users: monkey.users,
+    monkeys: monkey.monkeys
+});
 
-export default connect(mapStateToProps)(withStyles(styles)(Trader));
+export default connect(mapStateToProps)(Trader);

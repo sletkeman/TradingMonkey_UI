@@ -23,9 +23,8 @@ const setMonkeys = (monkeys) => ({
 
 const getUsers = () => async dispatch => {
     try {
-        const response = await fetchUsers();
-        const { users } = response;
-        dispatch(setUsers(users));
+        const { data } = await fetchUsers();
+        dispatch(setUsers(data));
     } catch (error) {
         console.log(error);
     }
