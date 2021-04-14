@@ -1,12 +1,13 @@
 import React from "react";
+import { makeStyles } from '@material-ui/core/styles';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
-
-import Trader from "./pages/Trader/Trader";
-import Counter from "./pages/counter/Counter"
+import Header from "./components/header/Header"
+import Trader from "./pages/trader/Trader";
+import Session from "./components/session/session"
 
 const routes = [
   {
@@ -14,14 +15,27 @@ const routes = [
     component: Trader
   },
   {
-    path: "/counter",
-    component: Counter
+    path: "/authcode",
+    component: Session
   }
 ];
 
+const useStyles = makeStyles((theme) => ({
+  appBarSpacer: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    height: '100vh',
+    overflow: 'auto',
+  }
+}));
+
 function App() {
+  const classes = useStyles();
   return (
     <Router>
+      <Header />
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
         <Switch>
           {routes.map((route) => (
             <Route
@@ -32,6 +46,7 @@ function App() {
             />
           ))}
         </Switch>
+      </main>
     </Router>
   );
 }
