@@ -16,13 +16,13 @@ class Trader extends Component {
       myDate: new Date()
     };
   }
+
+  componentDidUpdate(prevState, prevProps) {
+
+  }
   
-  handleClick = async () => {
-    const { payload } = await this.props.dispatch(authenticate());
-    // redirect to etrade for authentication
-    if (payload && payload.url) {
-      window.location.replace(payload.url);
-    }
+  handleClick = () => {
+    this.props.dispatch(authenticate())
   }
 
   handleChange = async (event) => {
@@ -35,13 +35,15 @@ class Trader extends Component {
   }
 
   render() {
-      return (
+    const { etradeSessionValid } = this.props;
+    return (
       <div id="TraderPage">
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Button variant="contained" color="primary" onClick={this.handleClick}>
+            {etradeSessionValid}
+            {!etradeSessionValid && (<Button variant="contained" color="primary" onClick={this.handleClick}>
               Get Etrade Session
-            </Button>
+            </Button>)}
           </Grid>
           <Grid item xs={3}>
             <InputLabel htmlFor="name-native-error">User</InputLabel>
@@ -84,9 +86,10 @@ Trader.propTypes = {
   monkeys: PropTypes.array.isRequired
 };
 
-const mapStateToProps = ({ monkey }) => ({
+const mapStateToProps = ({ monkey, etrade }) => ({
   users: monkey.users,
-  monkeys: monkey.monkeys
+  monkeys: monkey.monkeys,
+  etradeSessionValid: etrade.sessionValid
 });
 
 export default connect(mapStateToProps)(Trader);

@@ -1,10 +1,11 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  BrowserRouter as Router,
+  Router,
   Switch,
   Route,
 } from "react-router-dom";
+import history from "./services/history";
 import Header from "./components/header/Header"
 import Trader from "./pages/trader/Trader";
 import Session from "./components/session/session"
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   return (
-    <Router>
+    <Router history={history}>
       <Header />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
