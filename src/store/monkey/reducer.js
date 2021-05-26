@@ -1,13 +1,17 @@
 import {
   SET_MONKEYS,
+  SET_MONKEY,
   SET_USER,
-  SET_USERS
+  SET_USERS,
+  SET_POSITIONS
 } from './constants';
   
 const initialState = {
   users: [],
   userId: 0,
   monkeys: [],
+  monkeyId: 0,
+  positions: []
 };
   
 const reducer = (state = initialState, action) => {
@@ -20,9 +24,17 @@ const reducer = (state = initialState, action) => {
         return Object.assign({}, state, {
           userId: action.userId
         });
-    case SET_MONKEYS:
+      case SET_MONKEYS:
         return Object.assign({}, state, {
           monkeys: action.monkeys
+        });
+      case SET_MONKEY:
+        return Object.assign({}, state, {
+          monkey: action.monkey
+        });
+      case SET_POSITIONS:
+        return Object.assign({}, state, {
+          positions: action.positions
         });
     default:
       return state;
